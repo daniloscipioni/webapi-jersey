@@ -1,0 +1,52 @@
+package com.schott.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.schott.connection.ConnectionFactory;
+
+public class TestrestDAO {
+	
+private PreparedStatement stmt = null;
+	
+	
+	
+	public String returnErrorSql;
+	
+		
+	public String getReturnErrorSql() {
+		return returnErrorSql;
+	}
+
+	public void setReturnErrorSql(String returnErrorSql) {
+		this.returnErrorSql = returnErrorSql;
+	}
+
+
+	
+	public void UpdatePalletQuantity(int quantity, String pallet )
+    {  
+
+		Connection con = ConnectionFactory.GetConnection();
+		
+        try {
+            PreparedStatement stmt = con.prepareStatement("insert into test.tbl_testpost(value1,value2)values(?, ?)");
+		    stmt.setInt(1, quantity);
+			stmt.setString(2, pallet);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			
+			
+			e.printStackTrace();
+		}finally {
+			ConnectionFactory.closeConnection(con, stmt);
+		}
+        
+    }
+	
+
+}

@@ -1,0 +1,128 @@
+package com.schott.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class TestrestDAO {
+	
+private PreparedStatement stmt = null;
+	
+	
+	
+	public String returnErrorSql;
+	
+		
+	public String getReturnErrorSql() {
+		return returnErrorSql;
+	}
+
+	public void setReturnErrorSql(String returnErrorSql) {
+		this.returnErrorSql = returnErrorSql;
+	}
+
+	public ResultSet Search(String sql)
+    {  
+		Connection con = ConnectionFactory.GetConnection();
+        ResultSet rs = null;
+        try
+        {
+            Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = statement.executeQuery(sql);
+          
+        }catch( SQLException sqlex )
+        {
+
+        	setReturnErrorSql("Erro de conexão: " + sqlex.getMessage() + " - " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()));
+           
+        }finally{
+            ConnectionFactory.closeConnection(con);
+        }
+        return rs;
+    }
+	
+	public void UpdatePalletLastBox(Timestamp date, String pallet )
+    {  
+		Connection con = ConnectionFactory.GetConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("update fpp.tbl_fpp_generated_card set last_box_feedback = ? where pallet_no = ?");
+		    stmt.setTimestamp(1, date);
+			stmt.setString(2, pallet);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			
+			setReturnErrorSql("Erro de update last box " + e.getMessage() + " - " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()));
+			
+			e.printStackTrace();
+		}finally {
+			ConnectionFactory.closeConnection(con, stmt);
+		}
+        
+    }
+	
+	public void UpdatePalletQuantity(int quantity, String pallet )
+    {  
+
+		Connection con = ConnectionFactory.GetConnection();
+		
+        try {
+            PreparedStatement stmt = con.prepareStatement("update fpp.tbl_fpp_generated_card set qty_pieces_confirmed = ? where pallet_no = ?");
+		    stmt.setInt(1, quantity);
+			stmt.setString(2, pallet);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			
+			setReturnErrorSql("Erro de update quantity " + e.getMessage() + " - " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()));
+			
+			e.printStackTrace();
+		}finally {
+			ConnectionFactory.closeConnection(con, stmt);
+		}
+        
+    }
+	
+	public void UpdateBoxQuantity(int quantity, String pallet )
+    {  
+
+		Connection con = ConnectionFactory.GetConnection();
+		
+        try {
+            PreparedStatement stmt = con.prepareStatement("update fpp.tbl_fpp_generated_card set qty_box_confirmed = ? where pallet_no = ?");
+		    stmt.setInt(1, quantity);
+			stmt.setString(2, pallet);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			
+			setReturnErrorSql("Erro de update quantity " + e.getMessage() + " - " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()));
+			
+			e.printStackTrace();
+		}finally {
+			ConnectionFactory.closeConnection(con, stmt);
+		}
+        
+    }
+	
+	public void UpdateMissingQuantity(int missingQuantity, String pallet )
+    {  
+
+		Connection con = ConnectionFactory.GetConnection();
+		
+        try {
+            PreparedStatement stmt = con.prepareStatement("update fpp.tbl_fpp_generated_card set order_missing_qty = ? where pallet_no = ?");
+		    stmt.setInt(1, missingQuantity);
+			stmt.setString(2, pallet);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			
+			setReturnErrorSql("Erro de update quantity " + e.getMessage() + " - " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()));
+			
+			e.printStackTrace();
+		}finally {
+			ConnectionFactory.closeConnection(con, stmt);
+		}
+        
+    }
+}

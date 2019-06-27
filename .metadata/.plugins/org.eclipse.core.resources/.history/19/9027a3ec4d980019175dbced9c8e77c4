@@ -1,0 +1,13 @@
+package com.schott;
+
+import javax.ws.rs.Path;
+
+@Path("/helloWorld")
+public class HelloWordRestService {
+	
+		public String getGreeting(){
+			String greeting = "Hello ";
+			
+			return greeting;
+		}
+}

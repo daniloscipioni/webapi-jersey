@@ -1,0 +1,5 @@
+package com.schott;
+
+public class HelloWordRestService {
+
+}
