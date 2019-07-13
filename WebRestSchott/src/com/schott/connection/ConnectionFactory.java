@@ -10,8 +10,8 @@ import java.util.logging.Logger;
 
 public class ConnectionFactory {
 	 private static final String DRIVER = "org.postgresql.Driver";
-	    private static final String URL_FPP = "jdbc:postgresql://localhost:5432/production_manager";
-	    private static final String USER_FPP = "DaniloScipioni";
+	    private static final String URL_FPP = "jdbc:postgresql://localhost:5432/postgres";
+	    private static final String USER_FPP = "postgres";
 	    private static final String PASS_FPP = "danilo89";
 	    
 	    

@@ -28,6 +28,7 @@ public class HelloWordRestService {
 		
 		@POST
 		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
 		@Path("/teste")
 		public String createUserProfile(UserProfile userProfile) {
 		    
